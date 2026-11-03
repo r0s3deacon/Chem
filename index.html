@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organic Chemistry Nomenclature Mastery</title>
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --maroon: #7A1C2E;
+            --maroon-light: #F9EBEF;
+            --teal: #007A78;
+            --teal-light: #E0F2F1;
+            --text-dark: #2C3E50;
+            --border-color: #D1D5DB;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 0;
+            background-image: radial-gradient(var(--teal-light) 1px, transparent 1px), radial-gradient(var(--maroon-light) 1px, var(--bg-color) 1px);
+            background-size: 40px 40px;
+            background-position: 0 0, 20px 20px;
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--maroon), var(--teal));
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        header h1 {
+            margin: 0 0 0.5rem 0;
+            font-size: 2.2rem;
+            letter-spacing: 1px;
+        }
+
+        header p {
+            margin: 0;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            padding: 0.5rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav button {
+            background-color: transparent;
+            border: 2px solid var(--teal);
+            color: var(--teal);
+            padding: 0.6rem 1.2rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        nav button:hover, nav button.active {
+            background-color: var(--teal);
+            color: white;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .game-section {
+            display: none;
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            border-top: 5px solid var(--maroon);
+        }
+
+        .game-section.active {
+            display: block;
+        }
+
+        h2 {
+            color: var(--maroon);
+            margin-top: 0;
+        }
+
+        .layout-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .layout-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .reference-box {
+            background-color: var(--teal-light);
+            border: 1px solid var(--teal);
+            border-radius: 8px;
+            padding: 1.2rem;
+            height: fit-content;
+        }
+
+        .reference-box h3 {
+            color: var(--teal);
+            margin-top: 0;
+            border-bottom: 2px solid var(--teal);
+            padding-bottom: 0.5rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 0.5rem;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--teal);
+            color: white;
+        }
+
+        .question-card {
+            background: var(--maroon-light);
+            border-left: 4px solid var(--maroon);
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0 8px 8px 0;
+        }
+
+        input[type="text"], select {
+            padding: 0.6rem;
+            width: 100%;
+            max-width: 300px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            margin: 0.5rem 0 1rem 0;
+            font-size: 1rem;
+        }
+
+        button.action-btn {
+            background-color: var(--maroon);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        button.action-btn:hover {
+            opacity: 0.9;
+        }
+
+        .feedback {
+            margin-top: 1rem;
+            font-weight: bold;
+            padding: 0.8rem;
+            border-radius: 6px;
+        }
+
+        .feedback.correct {
+            background-color: #D1E7DD;
+            color: #0F5132;
+        }
+
+        .feedback.incorrect {
+            background-color: #F8D7DA;
+            color: #842029;
+        }
+
+        .score-board {
+            font-weight: bold;
+            color: var(--teal);
+            margin-bottom: 1rem;
+        }
+
+        .rule-box {
+            background: #fff;
+            border: 1px solid var(--maroon);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Organic Chemistry Nomenclature Studio</h1>
+        <p>Master Alkanes, Alkenes, Alkanols & Alkanoic Acids through Interactive Games</p>
+    </header>
+
+    <nav>
+        <button onclick="switchTab('game1')" class="active" id="btn-game1">Game 1: Main Chain</button>
+        <button onclick="switchTab('game2')" id="btn-game2">Game 2: Numbering & FG</button>
+        <button onclick="switchTab('game3')" id="btn-game3">Game 3: Substituents</button>
+        <button onclick="switchTab('game4')" id="btn-game4">Game 4: Full Name</button>
+        <button onclick="switchTab('game5')" id="btn-game5">Bonus: Rules</button>
+    </nav>
+
+    <div class="container">
+
+        <!-- GAME 1: MAIN CHAIN -->
+        <div id="game1" class="game-section active">
+            <h2>Game 1: The Longest Main Chain</h2>
+            <p><strong>Rule Introduction:</strong> The main chain includes the carbon with the functional group, and needs to be as <strong>long as possible</strong>.</p>
+            <div class="score-board" id="g1-score">Question 1 of 5</div>
+            
+            <div class="question-card" id="g1-question-container">
+                <!-- Dynamically loaded question -->
+            </div>
+
+            <div id="g1-feedback"></div>
+            <button class="action-btn" id="g1-next-btn" onclick="checkGame1()" style="display:none;">Next Question</button>
+        </div>
+
+        <!-- GAME 2: NUMBERING & FUNCTIONAL GROUP -->
+        <div id="game2" class="game-section">
+            <h2>Game 2: Numbering & Functional Group Labelling</h2>
+            <p><em>Rule:</em> The labelling of the functional group and numbering of the carbon chain should start from the side <strong>closer to the functional group</strong>, or the side chain if the functional group is absent.</p>
+            
+            <div class="layout-grid">
+                <div>
+                    <div class="score-board" id="g2-score">Question 1 of 5</div>
+                    <div class="question-card" id="g2-question-container"></div>
+                    <div id="g2-feedback"></div>
+                    <button class="action-btn" id="g2-next-btn" onclick="checkGame2()" style="display:none;">Next Question</button>
+                </div>
+                <div class="reference-box">
+                    <h3>Homologous Series Reference</h3>
+                    <table>
+                        <tr><th>Series</th><th>Functional Group</th><th>Suffix</th></tr>
+                        <tr><td>Alkane</td><td>C-C (None)</td><td>-ane</td></tr>
+                        <tr><td>Alkene</td><td>C=C double bond</td><td>-ene</td></tr>
+                        <tr><td>Alkanol</td><td>-OH (hydroxyl)</td><td>-ol</td></tr>
+                        <tr><td>Alkanoic Acid</td><td>-COOH (carboxyl)</td><td>-oic acid</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- GAME 3: SUBSTITUENTS -->
+        <div id="game3" class="game-section">
+            <h2>Game 3: Identifying & Naming Substituents</h2>
+            <p>Learn how to identify side chains (substituents) and apply numerical prefixes correctly.</p>
+            
+            <div class="layout-grid">
+                <div>
+                    <div class="score-board" id="g3-score">Question 1 of 5</div>
+                    <div class="question-card" id="g3-question-container"></div>
+                    <div id="g3-feedback"></div>
+                    <button class="action-btn" id="g3-next-btn" onclick="checkGame3()" style="display:none;">Next Question</button>
+                </div>
+                <div class="reference-box">
+                    <h3>Substituent Multipliers</h3>
+                    <table>
+                        <tr><th>Count</th><th>Prefix</th></tr>
+                        <tr><td>1</td><td>mono- (usually omitted)</td></tr>
+                        <tr><td>2</td><td>di- (e.g., dimethyl)</td></tr>
+                        <tr><td>3</td><td>tri- (e.g., trimethyl)</td></tr>
+                        <tr><td>4</td><td>tetra- (e.g., tetramethyl)</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- GAME 4: FULL NAME ASSEMBLY -->
+        <div id="game4" class="game-section">
+            <h2>Game 4: Assemble the Full IUPAC Name</h2>
+            <div class="rule-box">
+                <strong>Formula:</strong> <code>[Prefixes / Substituents]</code> + <code>[Root Word (Carbons)]</code> + <code>[Suffix (Functional Group)]</code>
+            </div>
+            <div class="score-board" id="g4-score">Question 1 of 5</div>
+            
+            <div class="question-card" id="g4-question-container"></div>
+            <div id="g4-feedback"></div>
+            <button class="action-btn" id="g4-next-btn" onclick="checkGame4()" style="display:none;">Next Question</button>
+        </div>
+
+        <!-- GAME 5: BONUS GAME (REDUNDANCY & VOWELS) -->
+        <div id="game5" class="game-section">
+            <h2>Bonus Game: Redundancy & Vowel/Consonant Rules</h2>
+            <p>Test your mastery over advanced IUPAC formatting rules!</p>
+            
+            <div class="score-board" id="g5-score">Question 1 of 4</div>
+            <div class="question-card" id="g5-question-container"></div>
+            <div id="g5-feedback"></div>
+            <button class="action-btn" id="g5-next-btn" onclick="checkGame5()" style="display:none;">Next Question</button>
+        </div>
+
+    </div>
+
+    <script>
+        function switchTab(tabId) {
+            document.querySelectorAll('.game-section').forEach(sec => sec.classList.remove('active'));
+            document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            document.getElementById('btn-' + tabId).classList.add('active');
+        }
+
+        // --- GAME 1 DATA & LOGIC ---
+        const g1Data = [
+            { mol: "CH3-CH(CH3)-CH2-CH3 (with a branched methyl group)", carbons: 4, root: "but" },
+            { mol: "CH3-CH2-CH(CH3)-CH2-CH3", carbons: 5, root: "pent" },
+            { mol: "CH3-CH2-CH2-CH2-OH (Alkanol)", carbons: 4, root: "but" },
+            { mol: "CH3-CH=CH-CH2-CH3 (Alkene)", carbons: 5, root: "pent" },
+            { mol: "CH3-CH2-CH2-COOH (Alkanoic Acid)", carbons: 4, root: "but" }
+        ];
+        let g1Idx = 0;
+
+        function loadGame1() {
+            if (g1Idx >= g1Data.length) {
+                document.getElementById('g1-question-container').innerHTML = "<h3>Congratulations! You completed Game 1.</h3>";
+                document.getElementById('g1-next-btn').style.display = 'none';
+                return;
+            }
+            let q = g1Data[g1Idx];
+            document.getElementById('g1-score').innerText = `Question ${g1Idx + 1} of 5`;
+            document.getElementById('g1-question-container').innerHTML = `
+                <p><strong>Molecule Structure:</strong> ${q.mol}</p>
+                <p>1. How many carbon atoms are in the longest continuous main chain?</p>
+                <input type="text" id="g1-carbons" placeholder="e.g., 4 or 5">
+                <p>2. What is the root word for this carbon count? (meth, eth, prop, but, pent, hex...)</p>
+                <input type="text" id="g1-root" placeholder="e.g., but">
+            `;
+            document.getElementById('g1-feedback').innerHTML = '';
+            document.getElementById('g1-next-btn').style.display = 'inline-block';
+            document.getElementById('g1-next-btn').innerText = 'Submit Answer';
+            document.getElementById('g1-next-btn').setAttribute('onclick', 'checkGame1()');
+        }
+
+        function checkGame1() {
+            let cInput = document.getElementById('g1-carbons').value.trim();
+            let rInput = document.getElementById('g1-root').value.trim().toLowerCase();
+            let q = g1Data[g1Idx];
+            let fb = document.getElementById('g1-feedback');
+
+            if (parseInt(cInput) === q.carbons && rInput === q.root) {
+                fb.className = "feedback correct";
+                fb.innerText = "Correct! The main chain length and root word are properly identified.";
+                g1Idx++;
+                document.getElementById('g1-next-btn').innerText = 'Next Question';
+                document.getElementById('g1-next-btn').setAttribute('onclick', 'loadGame1()');
+            } else {
+                fb.className = "feedback incorrect";
+                fb.innerText = `Incorrect. Remember: Longest continuous chain containing the functional group. Correct carbons: ${q.carbons}, Root: ${q.root}.`;
+            }
+        }
+
+        // --- GAME 2 DATA & LOGIC ---
+        const g2Data = [
+            { mol: "OH-CH2-CH2-CH3 (Alkanol)", question: "From which end should you start numbering the carbon chain?", options: ["Left (closer to -OH)", "Right (further from -OH)"], correct: 0 },
+            { mol: "CH3-CH=CH-CH3 (Alkene)", question: "Where is the double bond located if numbered from left to right vs right to left?", options: ["Starts at carbon 2 either way", "Starts at carbon 1"], correct: 0 },
+            { mol: "CH3-CH(CH3)-CH2-CH3 (Alkane with methyl on carbon 2 from left)", question: "Choose the correct numbering direction:", options: ["Left to right (gives substituent lower number 2)", "Right to left (gives substituent higher number 3)"], correct: 0 },
+            { mol: "CH3-CH2-CH(OH)-CH3", question: "Which carbon bears the -OH functional group when numbered correctly?", options: ["Carbon 2", "Carbon 3"], correct: 0 },
+            { mol: "HOOC-CH2-CH3 (Alkanoic acid)", question: "Which carbon is always designated as Carbon 1 in alkanoic acids?", options: ["The carboxyl carbon (-COOH)", "The terminal methyl carbon"], correct: 0 }
+        ];
+        let g2Idx = 0;
+
+        function loadGame2() {
+            if (g2Idx >= g2Data.length) {
+                document.getElementById('g2-question-container').innerHTML = "<h3>Great job! Game 2 completed.</h3>";
+                document.getElementById('g2-next-btn').style.display = 'none';
+                return;
+            }
+            let q = g2Data[g2Idx];
+            document.getElementById('g2-score').innerText = `Question ${g2Idx + 1} of 5`;
+            let html = `<p><strong>Molecule:</strong> ${q.mol}</p><p>${q.question}</p>`;
+            q.options.forEach((opt, i) => {
+                html += `<label><input type="radio" name="g2-opt" value="${i}"> ${opt}</label><br>`;
+            });
+            document.getElementById('g2-question-container').innerHTML = html;
+            document.getElementById('g2-feedback').innerHTML = '';
+            document.getElementById('g2-next-btn').style.display = 'inline-block';
+            document.getElementById('g2-next-btn').innerText = 'Submit Answer';
+            document.getElementById('g2-next-btn').setAttribute('onclick', 'checkGame2()');
+        }
+
+        function checkGame2() {
+            let selected = document.querySelector('input[name="g2-opt"]:checked');
+            let fb = document.getElementById('g2-feedback');
+            if (!selected) {
+                fb.className = "feedback incorrect";
+                fb.innerText = "Please select an option.";
+                return;
+            }
+            if (parseInt(selected.value) === g2Data[g2Idx].correct) {
+                fb.className = "feedback correct";
+                fb.innerText = "Correct! Numbering starts from the end nearest to the principal functional group.";
+                g2Idx++;
+                document.getElementById('g2-next-btn').innerText = 'Next Question';
+                document.getElementById('g2-next-btn').setAttribute('onclick', 'loadGame2()');
+            } else {
+                fb.className = "feedback incorrect";
+                fb.innerText = "Incorrect. Review the numbering rule on the left/top.";
+            }
+        }
+
+        // --- GAME 3 DATA & LOGIC ---
+        const g3Data = [
+            { mol: "2 methyl groups on carbon 2 and 3 of pentane", q: "What is the correct prefix for 2 methyl groups?", ans: "2,3-dimethyl" },
+            { mol: "3 methyl groups on carbons 2, 2, and 4", q: "What is the correct prefix for 3 methyl groups?", ans: "2,2,4-trimethyl" },
+            { mol: "4 methyl groups on carbons 2, 2, 3, 3", q: "What is the correct prefix for 4 methyl groups?", ans: "2,2,3,3-tetramethyl" },
+            { mol: "1 ethyl group on carbon 3 of hexane", q: "What is the correct substituent name?", ans: "3-ethyl" },
+            { mol: "2 methyl groups on carbon 2", q: "What is the correct prefix?", ans: "2,2-dimethyl" }
+        ];
+        let g3Idx = 0;
+
+        function loadGame3() {
+            if (g3Idx >= g3Data.length) {
+                document.getElementById('g3-question-container').innerHTML = "<h3>Fantastic! Game 3 completed.</h3>";
+                document.getElementById('g3-next-btn').style.display = 'none';
+                return;
+            }
+            let q = g3Data[g3Idx];
+            document.getElementById('g3-score').innerText = `Question ${g3Idx + 1} of 5`;
+            document.getElementById('g3-question-container').innerHTML = `
+                <p><strong>Scenario:</strong> ${q.mol}</p>
+                <p>${q.q}</p>
+                <input type="text" id="g3-ans" placeholder="e.g., 2,3-dimethyl">
+            `;
+            document.getElementById('g3-feedback').innerHTML = '';
+            document.getElementById('g3-next-btn').style.display = 'inline-block';
+            document.getElementById('g3-next-btn').innerText = 'Submit Answer';
+            document.getElementById('g3-next-btn').setAttribute('onclick', 'checkGame3()');
+        }
+
+        function checkGame3() {
+            let val = document.getElementById('g3-ans').value.trim().toLowerCase();
+            let q = g3Data[g3Idx];
+            let fb = document.getElementById('g3-feedback');
+            if (val === q.ans) {
+                fb.className = "feedback correct";
+                fb.innerText = "Correct! Multipliers (di-, tri-, tetra-) are used correctly.";
+                g3Idx++;
+                document.getElementById('g3-next-btn').innerText = 'Next Question';
+                document.getElementById('g3-next-btn').setAttribute('onclick', 'loadGame3()');
+            } else {
+                fb.className = "feedback incorrect";
+                fb.innerText = `Incorrect. Expected answer format: ${q.ans}`;
+            }
+        }
+
+        // --- GAME 4 DATA & LOGIC ---
+        const g4Data = [
+            { desc: "3 carbons, alkane", ans: "propane" },
+            { desc: "4 carbons, alkene with double bond at carbon 1", ans: "but-1-ene" },
+            { desc: "3 carbons, alkanol with -OH at carbon 2", ans: "propan-2-ol" },
+            { desc: "2 carbons, alkanoic acid", ans: "ethanoic acid" },
+            { desc: "4 carbons with methyl at carbon 2, alkane", ans: "2-methylbutane" }
+        ];
+        let g4Idx = 0;
+
+        function loadGame4() {
+            if (g4Idx >= g4Data.length) {
+                document.getElementById('g4-question-container').innerHTML = "<h3>Outstanding! Game 4 completed.</h3>";
+                document.getElementById('g4-next-btn').style.display = 'none';
+                return;
+            }
+            let q = g4Data[g4Idx];
+            document.getElementById('g4-score').innerText = `Question ${g4Idx + 1} of 5`;
+            document.getElementById('g4-question-container').innerHTML = `
+                <p><strong>Compound Details:</strong> ${q.desc}</p>
+                <p>Assemble the full IUPAC name:</p>
+                <input type="text" id="g4-ans" placeholder="e.g., propane or propan-2-ol">
+            `;
+            document.getElementById('g4-feedback').innerHTML = '';
+            document.getElementById('g4-next-btn').style.display = 'inline-block';
+            document.getElementById('g4-next-btn').innerText = 'Submit Answer';
+            document.getElementById('g4-next-btn').setAttribute('onclick', 'checkGame4()');
+        }
+
+        function checkGame4() {
+            let val = document.getElementById('g4-ans').value.trim().toLowerCase();
+            let q = g4Data[g4Idx];
+            let fb = document.getElementById('g4-feedback');
+            if (val === q.ans) {
+                fb.className = "feedback correct";
+                fb.innerText = "Spot on! You successfully assembled the prefix, root, and suffix.";
+                g4Idx++;
+                document.getElementById('g4-next-btn').innerText = 'Next Question';
+                document.getElementById('g4-next-btn').setAttribute('onclick', 'loadGame4()');
+            } else {
+                fb.className = "feedback incorrect";
+                fb.innerText = `Incorrect. The correct IUPAC name is: ${q.ans}`;
+            }
+        }
+
+        // --- GAME 5 DATA & LOGIC (BONUS) ---
+        const g5Data = [
+            { 
+                title: "Vowel Rule (-ol / -oic acid)", 
+                q: "When naming propan-1-ol, why is the 'e' dropped from propane?", 
+                options: ["Because the suffix starts with a vowel (o)", "Because alkanols don't have vowels", "It's optional"], 
+                correct: 0 
+            },
+            { 
+                title: "Consonant Rule (-ene)", 
+                q: "When naming pent-2-ene, why is the 'e' retained after the root?", 
+                options: ["Because 'ene' starts with a vowel, but wait - root ends in consonant sound / suffix starts with vowel. Actually, propane -> propan-1-ol drops 'e'. For pentene, pent-2-ene retains 'e' because...?", "Because 'ene' suffix follows root word directly without vowel clash? Wait, pentene retains 'e' or drops it? Let's check: pentene keeps 'e' or drops? Actually, pentan-1-ol drops 'e'. For pent-2-ene, 'ene' starts with 'e'. Let's test rule: If suffix starts with a vowel (a, e, i, o, u), the terminal 'e' of alkane root is dropped. E.g., propane + ol = propanol."], 
+                qAlt: "When joining a root word to a suffix starting with a vowel (like -ol or -oic acid), what happens to the terminal 'e' of the alkane name?", 
+                options: ["It is dropped (e.g., propane -> propan-1-ol)", "It is doubled (e.g., propaneee)", "It remains unchanged"], 
+                correct: 0 
+            },
+            { 
+                title: "Redundancy Rule", 
+                q: "Why is it redundant to name a 3-carbon chain alkanoic acid as 'propane-1-oic acid'?", 
+                options: ["Because the carboxyl group -COOH can only ever be at position 1 of a terminal chain", "Because acids don't have numbers", "It is not redundant"], 
+                correct: 0 
+            },
+            { 
+                title: "Redundancy Rule in Alkenes", 
+                q: "For propene (3 carbons), why is position number '1' omitted (i.e. prop-1-ene is simply propene)?", 
+                options: ["The double bond can only be between C1 and C2 in a 3-carbon chain", "Propene doesn't have carbon numbers", "Because alkenes don't use numbers"], 
+                correct: 0 
+            }
+        ];
+        let g5Idx = 0;
+
+        function loadGame5() {
+            if (g5Idx >= g5Data.length) {
+                document.getElementById('g5-question-container').innerHTML = "<h3>Congratulations! You finished all bonus challenges and mastered IUPAC nomenclature!</h3>";
+                document.getElementById('g5-next-btn').style.display = 'none';
+                return;
+            }
+            let q = g5Data[g5Idx];
+            document.getElementById('g5-score').innerText = `Bonus Question ${g5Idx + 1} of 4`;
+            let textQ = q.qAlt || q.q;
+            let html = `<p><strong>${q.title}</strong></p><p>${textQ}</p>`;
+            q.options.forEach((opt, i) => {
+                html += `<label><input type="radio" name="g5-opt" value="${i}"> ${opt}</label><br>`;
+            });
+            document.getElementById('g5-question-container').innerHTML = html;
+            document.getElementById('g5-feedback').innerHTML = '';
+            document.getElementById('g5-next-btn').style.display = 'inline-block';
+            document.getElementById('g5-next-btn').innerText = 'Submit Answer';
+            document.getElementById('g5-next-btn').setAttribute('onclick', 'checkGame5()');
+        }
+
+        function checkGame5() {
+            let selected = document.querySelector('input[name="g5-opt"]:checked');
+            let fb = document.getElementById('g5-feedback');
+            if (!selected) {
+                fb.className = "feedback incorrect";
+                fb.innerText = "Please select an option.";
+                return;
+            }
+            if (parseInt(selected.value) === g5Data[g5Idx].correct) {
+                fb.className = "feedback correct";
+                fb.innerText = "Correct! Excellent understanding of IUPAC conventions.";
+                g5Idx++;
+                document.getElementById('g5-next-btn').innerText = 'Next Question';
+                document.getElementById('g5-next-btn').setAttribute('onclick', 'loadGame5()');
+            } else {
+                fb.className = "feedback incorrect";
+                fb.innerText = "Incorrect. Review vowel omission and positional redundancy rules.";
+            }
+        }
+
+        // Initialize first game on load
+        window.onload = function() {
+            loadGame1();
+            loadGame2();
+            loadGame3();
+            loadGame4();
+            loadGame5();
+        };
+    </script>
+</body>
+</html>
